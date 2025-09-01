@@ -1,0 +1,15 @@
+# Ignore Terraform variable files
+*.tfvars
+*.tfvars.json
+
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Optional crash logs
+crash.log
+
+# Executable shell files
+*.ps1
+*.sh
