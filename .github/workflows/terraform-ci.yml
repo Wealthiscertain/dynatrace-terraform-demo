@@ -1,0 +1,50 @@
+name: Terraform CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5  
+
+      # Step 3: Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # Step 4: Terraform Format Check
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      # Step 5: Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Step 6: Terraform Plan
+      - name: Terraform Plan
+        env:
+          DT_ENV_URL: ${{ secrets.DT_ENV_URL }}
+          DT_API_TOKEN: ${{ secrets.DT_API_TOKEN }}
+        run: terraform plan -var="dt_env_url=$DT_ENV_URL" -var="dt_api_token=$DT_API_TOKEN"
+
+      # Step 7: Terraform Apply
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          DT_ENV_URL: ${{ secrets.DT_ENV_URL }}
+          DT_API_TOKEN: ${{ secrets.DT_API_TOKEN }}
+        run: terraform apply -auto-approve -var="dt_env_url=$DT_ENV_URL" -var="dt_api_token=$DT_API_TOKEN"
