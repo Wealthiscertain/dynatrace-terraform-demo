@@ -9,15 +9,15 @@ variable "dt_api_token" {
   sensitive   = true
 }
 
-variable "oauth_client_id" {
-  description = "Dynatrace oauth client id"
-  type        = string
-  sensitive   = true
-}
+# variable "oauth_client_id" {
+#   description = "Dynatrace oauth client id"
+#   type        = string
+#   sensitive   = true
+# }
 
-variable "oauth_client_secret" {
-  description = "Dynatrace oauth client secret"
-  type        = string
-  sensitive   = true
-}
+# variable "oauth_client_secret" {
+#   description = "Dynatrace oauth client secret"
+#   type        = string
+#   sensitive   = true
+# }
 
