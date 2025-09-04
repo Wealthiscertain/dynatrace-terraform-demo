@@ -11,7 +11,7 @@ variable "dt_api_token" {
 
 variable "name" {
   description = "Name of resource type"
-  
+
 }
 
 variable "oauth_client_id" {
