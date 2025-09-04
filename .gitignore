@@ -1,6 +1,5 @@
 # Ignore Terraform variable files
-*.tfvars
-*.tfvars.json
+*auto.tfvars
 
 # Ignore Terraform state files
 *.tfstate
@@ -9,6 +8,3 @@
 
 # Optional crash logs
 crash.log
-
-# Executable shell files
-auth-env.sh

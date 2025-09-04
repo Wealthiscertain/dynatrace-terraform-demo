@@ -12,8 +12,6 @@ provider "dynatrace" {
   dt_api_token = var.dt_api_token
 }
 
-resource "dynatrace_management_zone_v2" "my_zone_3" {
-  name = "placeholder_2"
+resource "dynatrace_management_zone_v2" "test_zone" {
+  name = var.name
 }
-
-#terraform import dynatrace_management_zone_v2.my_zone <MANAGEMENT_ZONE_ID>
