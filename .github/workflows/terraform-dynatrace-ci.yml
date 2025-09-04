@@ -1,4 +1,4 @@
-name: Terraform CI
+name: Terraform Dynatrace CI
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
+    environment: dynatrace-prod
 
     steps:
       # Step 1: Checkout code
