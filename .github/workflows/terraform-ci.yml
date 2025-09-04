@@ -6,6 +6,12 @@ on:
       - main
   pull_request:
 
+env:
+  TF_VAR_dt_env_url: ${{ secrets.DT_ENV_URL }}
+  TF_VAR_dt_api_token: ${{ secrets.DT_API_TOKEN }}
+  TF_VAR_oauth_client_id: ${{ secrets.OAUTH_CLIENT_ID }}
+  TF_VAR_oauth_client_secret: ${{ secrets.OAUTH_CLIENT_SECRET }}
+
 jobs:
   terraform:
     name: Terraform
@@ -36,23 +42,9 @@ jobs:
 
       # Step 6: Terraform Plan
       - name: Terraform Plan
-        env:
-          DT_ENV_URL: ${{ secrets.DT_ENV_URL }}
-          DT_API_TOKEN: ${{ secrets.DT_API_TOKEN }}
-          OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
-          OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
-
-        run: |
-          terraform plan -input=false -no-color \
-            -var="dt_env_url=${DT_ENV_URL}" \
-            -var="dt_api_token=${DT_API_TOKEN}" \
-            -var="oauth_client_id=${OAUTH_CLIENT_ID}" \
-            -var="oauth_client_secret=${OAUTH_CLIENT_SECRET}"
-
+        run: terraform plan -input=false -no-color 
+            
       # Step 7: Terraform Apply
       - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        env:
-          DT_ENV_URL: ${{ secrets.DT_ENV_URL }}
-          DT_API_TOKEN: ${{ secrets.DT_API_TOKEN }}
-        run: terraform apply -auto-approve -var="dt_env_url=$DT_ENV_URL" -var="dt_api_token=$DT_API_TOKEN"
