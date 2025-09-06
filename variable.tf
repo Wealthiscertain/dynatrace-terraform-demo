@@ -25,3 +25,9 @@ variable "oauth_client_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "mz_names" {
+  description = "Management zone names to import/manage"
+  type        = set(string)
+  default     = ["mz_1", "mz_2", "mz_3"]
+}
