@@ -28,24 +28,32 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.11.2 
+      
+      # Step 3: Configure AWS credentials
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::058264264614:role/GitHubActionsTerraformState
+          role-session-name: gha-terraform
+          aws-region: us-east-1
 
-      # Step 3: Terraform Init
+      # Step 4: Terraform Init
       - name: Terraform Init
         run: terraform init
 
-      # Step 4: Terraform Format Check
+      # Step 5: Terraform Format Check
       - name: Terraform Format
         run: terraform fmt -check
 
-      # Step 5: Terraform Validate
+      # Step 6: Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      # Step 6: Terraform Plan
+      # Step 7: Terraform Plan
       - name: Terraform Plan
         run: terraform plan -input=false -no-color 
             
-      # Step 7: Terraform Apply
+      # Step 8: Terraform Apply
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
