@@ -1,4 +1,4 @@
-dt_env_url = "https://myo19901.live.dynatrace.com"
+dt_env_url = "https://jik95251.live.dynatrace.com"
 
 mz_names = {
   mz_1 = "mz_1"
