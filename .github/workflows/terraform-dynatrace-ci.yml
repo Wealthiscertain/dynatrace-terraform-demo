@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+permissions:
+  id-token: write   
+  contents: read
+
 env:
   TF_VAR_dt_env_url: ${{ secrets.DT_ENV_URL }}
   TF_VAR_dt_api_token: ${{ secrets.DT_API_TOKEN }}
